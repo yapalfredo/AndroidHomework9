@@ -14,6 +14,7 @@ public class LocationService extends Service {
     private LocationManager locationManager;
     private LocationListener listener;
 
+
     public LocationService() {
     }
 
@@ -24,9 +25,8 @@ public class LocationService extends Service {
         listener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-                MainActivity.locArray[0] = String.valueOf(location.getLatitude());
-                MainActivity.locArray[1] = String.valueOf(location.getLongitude());
-                MainActivity.locArray[2] = String.valueOf(location.getAltitude());
+                MainActivity.latitude = String.valueOf(location.getLatitude());
+                MainActivity.longitude = String.valueOf(location.getLongitude());
             }
 
             @Override
@@ -67,7 +67,8 @@ public class LocationService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-
+        locationManager = null;
+        listener = null;
     }
 
     @Override

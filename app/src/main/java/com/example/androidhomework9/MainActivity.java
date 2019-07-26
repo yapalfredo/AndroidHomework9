@@ -3,15 +3,17 @@ package com.example.androidhomework9;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
-    public static String[] locArray = new String[3];
+    public static String latitude;
+    public static String longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

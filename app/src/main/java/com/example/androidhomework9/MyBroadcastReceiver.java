@@ -11,7 +11,6 @@ import android.telephony.SmsMessage;
 
 public class MyBroadcastReceiver extends BroadcastReceiver {
 
-    public static boolean ISLAUNCHED=false;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -58,10 +57,7 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
             // sends a text of the phones coordinates/location
             Intent locationServiceIntent = new Intent(context, LocationService.class);
             if (str.startsWith(pw) && str.contains("StartMonitor")){
-                if (ISLAUNCHED == false){
-                    context.startService(locationServiceIntent);
-                    ISLAUNCHED = true;
-                }
+                context.startService(locationServiceIntent);
                 sendSMS(context,originatingSender,"coordinates");
             }else if (str.startsWith(pw) && str.contains("StopMonitor")){
                 context.stopService(locationServiceIntent);
@@ -117,9 +113,8 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
     {
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append("Your phones location coordinates are: \n");
-        stringBuffer.append("Latitude: " + MainActivity.locArray[0] + "\n");
-        stringBuffer.append("Longitude: "+ MainActivity.locArray[1]+ "\n");
-        stringBuffer.append("Altitude: "+ MainActivity.locArray[2] + "\n");
+        stringBuffer.append("Latitude: " + MainActivity.latitude+ "\n");
+        stringBuffer.append("Longitude: "+ MainActivity.longitude+ "\n");
 
         return stringBuffer.toString();
     }
