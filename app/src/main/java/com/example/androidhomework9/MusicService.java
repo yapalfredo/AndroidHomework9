@@ -8,14 +8,15 @@ import android.provider.Settings;
 
 public class MusicService extends Service {
 
-    MediaPlayer mediaPlayer;
+    private MediaPlayer mediaPlayer;
+
     public MusicService() {
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        float max=100*.01f;
+        float max=100;
         mediaPlayer = MediaPlayer.create(this, Settings.System.DEFAULT_RINGTONE_URI);
         mediaPlayer.setVolume(max, max);
         mediaPlayer.setLooping(true);

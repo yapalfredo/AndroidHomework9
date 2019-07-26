@@ -4,18 +4,14 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CallLog;
-import android.provider.MediaStore;
-import android.provider.Settings;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
-import android.widget.Toast;
-import java.net.URI;
 
 public class MyBroadcastReceiver extends BroadcastReceiver {
+
+    public static boolean ISLAUNCHED=false;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -39,22 +35,39 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
             }
             //-----------------------
             String pw = "1234"; //this serves as the password for requesting call logs
+            //-----------------------
+
+            //-----------------------
+            //send call logs
             if (str.startsWith(pw) && str.contains("SendCalllog")){
-                SmsManager manager = SmsManager.getDefault();
-                manager.sendTextMessage(originatingSender,null,
-                getLast10CallHistory(context), null, null);
+                sendSMS(context, originatingSender, "calls");
             }
 
-            //  float max=100*.01f;
+            //------------------------
+            // RING / MUSIC Service
+            //start ring and stop ring the phone
             Intent serviceIntent = new Intent(context, MusicService.class);
             if (str.startsWith(pw) && str.contains("StartRing")){
                 context.startService(serviceIntent);
             }else if (str.startsWith(pw) && str.contains("StopRing")) {
                 context.stopService(serviceIntent);
             }
+
+            //--------------------------
+            // Location Service
+            // sends a text of the phones coordinates/location
+            Intent locationServiceIntent = new Intent(context, LocationService.class);
+            if (str.startsWith(pw) && str.contains("StartMonitor")){
+                if (ISLAUNCHED == false){
+                    context.startService(locationServiceIntent);
+                    ISLAUNCHED = true;
+                }
+                sendSMS(context,originatingSender,"coordinates");
+            }else if (str.startsWith(pw) && str.contains("StopMonitor")){
+                context.stopService(locationServiceIntent);
+            }
         }
     }
-
 
     //--------------------------
     //Retrieving last 10 call logs
@@ -98,5 +111,32 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
             e.getStackTrace();
         }
         return stringBuffer.toString(); //returns the stringbuffer that contains the phone numbers
+    }
+
+    private String getLocationCoordinates()
+    {
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append("Your phones location coordinates are: \n");
+        stringBuffer.append("Latitude: " + MainActivity.locArray[0] + "\n");
+        stringBuffer.append("Longitude: "+ MainActivity.locArray[1]+ "\n");
+        stringBuffer.append("Altitude: "+ MainActivity.locArray[2] + "\n");
+
+        return stringBuffer.toString();
+    }
+
+    private void sendSMS(Context context, String sender, String type)
+    {
+        SmsManager manager = SmsManager.getDefault();
+        switch (type)
+        {
+            case "calls":
+                manager.sendTextMessage(sender,null,
+                        getLast10CallHistory(context), null, null);
+                break;
+            case "coordinates":
+                manager.sendTextMessage(sender, null,
+                        getLocationCoordinates(),null,null);
+                break;
+        }
     }
 }
