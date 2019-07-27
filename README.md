@@ -6,7 +6,8 @@ First is when the owner sends in an sms containing a special password and a spec
 Second way is when the owner sends in an sms containing also the same password and another special command string, like:  <br> 
 "1234 StartRing", the phone will ring on a full volume right away, and only the owner can stop the ring by sending another command. <br> 
 The third way is by tracking the location of the phone. When the owner sends in the same password and special command string, like: <br> 
-"1234 StartMonitor", the phone will respond to that text with the last known or updated Latitude and Longitude coordinates. <br>  <br> 
+"1234 StartMonitor", the phone will respond to that text with the last known or updated Latitude and Longitude coordinates. <br>  <br>
+Even if the app is not closed or not running, the text commands will still work.  <br>
 
 
 # The contains:
