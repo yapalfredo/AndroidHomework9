@@ -18,4 +18,6 @@ Even if the app is not closed or not running, the text commands will still work.
 Given: July 22nd, 2019
 
 # Demo
-![Alt text](Screenshot/app.gif?raw=true "demo")
+![Alt text](Screenshots/demo1.gif?raw=true "Send and Receive Call Logs via SMS") <br> 
+![Alt text](Screenshots/demo2.gif?raw=true "Send and Receive Location Coordinates via SMS") <br> 
+<video src="Screenshots/demo3.webm" width="378" height="672" controls preload></video> <br>
