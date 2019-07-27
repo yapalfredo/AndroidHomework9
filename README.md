@@ -1,6 +1,6 @@
 # AndroidHomework9
 This 9th homework is called Anti Theft System. The app has BroadcastReceiver and Background Services implemented. <br> <br>
-On a case that when the phone is lost, the owner of the phone would be able to track this phone in three ways. <br> 
+On a case that when the phone is lost, the owner of the phone would be able to track the phone in three ways. <br> <br>
 First is when the owner sends in an sms containing a special password and a special command string, like:  <br> 
 "1234 SendCallog", the phone will reply to that text with the last 10 most recent outgoing calls. <br> 
 Second way is when the owner sends in an sms containing also the same password and another special command string, like:  <br> 
